@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고객상담후기 | 정현태 보험설계사</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #3182F6;
+            --primary-blue-dark: #1B64DA;
+            --text-primary: #191F28;
+            --text-secondary: #4E5968;
+            --text-tertiary: #8B95A1;
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F9FAFB;
+            --border-light: #E5E8EB;
+            --success: #0BC27D;
+            --warning: #F59E0B;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Roboto", "Noto Sans KR", sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* 헤더 */
+        header {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border-light);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .menu-btn span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text-primary);
+            margin: 5px 0;
+            transition: 0.3s;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 32px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            font-size: 15px;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--primary-blue);
+        }
+
+        /* 모바일 메뉴 */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 280px;
+            height: 100vh;
+            background: var(--bg-primary);
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+            transition: right 0.3s ease;
+            z-index: 2000;
+            padding: 24px;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--text-primary);
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+        }
+
+        .mobile-menu li {
+            margin-bottom: 24px;
+        }
+
+        .mobile-menu a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-size: 18px;
+            font-weight: 500;
+            display: block;
+        }
+
+        /* 페이지 타이틀 */
+        .page-header {
+            background: linear-gradient(135deg, #667eea 0%, var(--primary-blue) 100%);
+            color: white;
+            padding: 60px 24px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .page-header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        /* 컨텐츠 영역 */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 24px;
+        }
+
+        /* 검색 영역 */
+        .search-area {
+            background: var(--bg-primary);
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary-blue);
+        }
+
+        .search-btn {
+            padding: 12px 24px;
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .search-btn:hover {
+            background: var(--primary-blue-dark);
+        }
+
+        /* 게시판 테이블 */
+        .board-wrapper {
+            background: var(--bg-primary);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .board-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .board-table thead {
+            background: var(--bg-secondary);
+        }
+
+        .board-table th {
+            padding: 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .board-table th:first-child {
+            width: 80px;
+            text-align: center;
+        }
+
+        .board-table th:nth-child(2) {
+            width: auto;
+        }
+
+        .board-table th:nth-child(3) {
+            width: 120px;
+            text-align: center;
+        }
+
+        .board-table th:nth-child(4) {
+            width: 120px;
+            text-align: center;
+        }
+
+        .board-table th:nth-child(5) {
+            width: 80px;
+            text-align: center;
+        }
+
+        .board-table tbody tr {
+            border-bottom: 1px solid var(--border-light);
+            transition: background 0.2s;
+            cursor: pointer;
+        }
+
+        .board-table tbody tr:hover {
+            background: var(--bg-secondary);
+        }
+
+        .board-table td {
+            padding: 16px;
+            font-size: 15px;
+        }
+
+        .board-table td:first-child {
+            text-align: center;
+            color: var(--text-tertiary);
+            font-weight: 500;
+        }
+
+        .board-table td:nth-child(2) {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .board-table td:nth-child(3),
+        .board-table td:nth-child(4) {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .board-table td:nth-child(5) {
+            text-align: center;
+            color: var(--text-tertiary);
+            font-size: 14px;
+        }
+
+        .category-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: linear-gradient(135deg, var(--primary-blue), #667eea);
+            color: white;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        /* 페이지네이션 */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 32px;
+            flex-wrap: wrap;
+        }
+
+        .pagination button {
+            padding: 8px 12px;
+            border: 1px solid var(--border-light);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .pagination button:hover {
+            background: var(--bg-secondary);
+        }
+
+        .pagination button.active {
+            background: var(--primary-blue);
+            color: white;
+            border-color: var(--primary-blue);
+        }
+
+        .pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* 상세보기 모달 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 3000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--bg-primary);
+            border-radius: 16px;
+            max-width: 700px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-header {
+            padding: 24px;
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .modal-header h2 {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            flex: 1;
+            margin-right: 16px;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--text-tertiary);
+            line-height: 1;
+        }
+
+        .modal-body {
+            padding: 24px;
+        }
+
+        .modal-meta {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-light);
+            flex-wrap: wrap;
+        }
+
+        .modal-meta span {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .modal-content-text {
+            line-height: 1.8;
+            color: var(--text-primary);
+            white-space: pre-wrap;
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .menu-btn {
+                display: block;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .page-header h1 {
+                font-size: 28px;
+            }
+
+            .search-area {
+                flex-direction: column;
+            }
+
+            .search-btn {
+                width: 100%;
+            }
+
+            .board-table thead {
+                display: none;
+            }
+
+            .board-table tbody tr {
+                display: block;
+                margin-bottom: 16px;
+                border: 1px solid var(--border-light);
+                border-radius: 8px;
+                padding: 16px;
+            }
+
+            .board-table td {
+                display: block;
+                padding: 8px 0;
+                text-align: left !important;
+            }
+
+            .board-table td:first-child {
+                font-size: 12px;
+                margin-bottom: 4px;
+            }
+
+            .board-table td:nth-child(2) {
+                font-size: 16px;
+                margin-bottom: 8px;
+            }
+
+            .board-table td:nth-child(3)::before,
+            .board-table td:nth-child(4)::before,
+            .board-table td:nth-child(5)::before {
+                font-weight: 600;
+                margin-right: 8px;
+            }
+
+            .board-table td:nth-child(3)::before {
+                content: "작성자: ";
+            }
+
+            .board-table td:nth-child(4)::before {
+                content: "작성일: ";
+            }
+
+            .board-table td:nth-child(5)::before {
+                content: "조회수: ";
+            }
+
+            .category-badge {
+                display: block;
+                width: fit-content;
+                margin-top: 8px;
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 헤더 -->
+    <header>
+        <div class="header-content">
+            <a href="insurance_website_updated.html" class="logo">
+                💼 정현태 보험설계사
+            </a>
+            <button class="menu-btn" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav>
+                <ul>
+                    <li><a href="insurance_website_updated.html#planning">보험설계</a></li>
+                    <li><a href="insurance_website_updated.html#services">보험청구</a></li>
+                    <li><a href="insurance_website_updated.html#process">청구절차</a></li>
+                    <li><a href="claim_reviews.html">고객청구후기</a></li>
+                    <li><a href="consult_reviews.html">고객상담후기</a></li>
+                    <li><a href="insurance_website_updated.html#contact">상담신청</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 모바일 메뉴 -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-header">
+            <div class="logo">💼 메뉴</div>
+            <button class="close-btn" onclick="toggleMenu()">&times;</button>
+        </div>
+        <ul>
+            <li><a href="insurance_website_updated.html#planning">보험설계</a></li>
+            <li><a href="insurance_website_updated.html#services">보험청구</a></li>
+            <li><a href="insurance_website_updated.html#process">청구절차</a></li>
+            <li><a href="claim_reviews.html">고객청구후기</a></li>
+            <li><a href="consult_reviews.html">고객상담후기</a></li>
+            <li><a href="insurance_website_updated.html#contact">상담신청</a></li>
+        </ul>
+    </div>
+
+    <!-- 페이지 헤더 -->
+    <section class="page-header">
+        <h1>고객 상담 후기</h1>
+        <p>보험 설계 및 상담을 받으신 고객님들의 생생한 후기입니다</p>
+    </section>
+
+    <!-- 컨텐츠 -->
+    <div class="container">
+        <!-- 검색 영역 -->
+        <div class="search-area">
+            <input type="text" class="search-input" id="searchInput" placeholder="제목 또는 내용으로 검색하세요">
+            <button class="search-btn" onclick="searchPosts()">검색</button>
+            <button class="search-btn" onclick="openWriteModal()" style="background: var(--success);">후기 작성</button>
+        </div>
+
+        <!-- 게시판 테이블 -->
+        <div class="board-wrapper">
+            <table class="board-table">
+                <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>제목</th>
+                        <th>작성자</th>
+                        <th>작성일</th>
+                        <th>조회수</th>
+                    </tr>
+                </thead>
+                <tbody id="boardBody">
+                    <!-- JavaScript로 동적 생성 -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 페이지네이션 -->
+        <div class="pagination" id="pagination">
+            <!-- JavaScript로 동적 생성 -->
+        </div>
+    </div>
+
+    <!-- 상세보기 모달 -->
+    <div class="modal" id="modal" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h2 id="modalTitle"></h2>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-meta" id="modalMeta"></div>
+                <div class="modal-content-text" id="modalContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 글쓰기 모달 -->
+    <div class="modal" id="writeModal" onclick="closeWriteModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h2>후기 작성</h2>
+                <button class="modal-close" onclick="closeWriteModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form onsubmit="submitReview(event)" style="display: flex; flex-direction: column; gap: 16px;">
+                    <div>
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text-primary);">제목</label>
+                        <input type="text" id="writeTitle" required style="width: 100%; padding: 12px; border: 1px solid var(--border-light); border-radius: 8px; font-size: 15px;">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text-primary);">작성자</label>
+                        <input type="text" id="writeAuthor" required style="width: 100%; padding: 12px; border: 1px solid var(--border-light); border-radius: 8px; font-size: 15px;">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text-primary);">상담 분류</label>
+                        <select id="writeCategory" required style="width: 100%; padding: 12px; border: 1px solid var(--border-light); border-radius: 8px; font-size: 15px;">
+                            <option value="">선택하세요</option>
+                            <option value="종합보험">종합보험</option>
+                            <option value="실손보험">실손보험</option>
+                            <option value="암보험">암보험</option>
+                            <option value="운전자보험">운전자보험</option>
+                            <option value="치아보험">치아보험</option>
+                            <option value="연금보험">연금보험</option>
+                            <option value="가족보험">가족보험</option>
+                            <option value="어린이보험">어린이보험</option>
+                            <option value="태아보험">태아보험</option>
+                            <option value="보험료절감">보험료절감</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text-primary);">내용</label>
+                        <textarea id="writeContent" required rows="8" style="width: 100%; padding: 12px; border: 1px solid var(--border-light); border-radius: 8px; font-size: 15px; resize: vertical;"></textarea>
+                    </div>
+                    <button type="submit" class="search-btn" style="width: 100%; padding: 16px; background: var(--primary-blue);">작성 완료</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 게시글 데이터
+        const posts = [
+            {
+                id: 1,
+                title: "첫 보험 가입, 친절한 상담에 감사드립니다",
+                author: "강민지",
+                date: "2024.11.20",
+                views: 156,
+                category: "종합보험",
+                content: "사회 초년생이라 보험에 대해 아는 게 하나도 없었는데, 정현태 설계사님께서 정말 친절하게 설명해주셨습니다.\n\n제 나이와 직업, 건강 상태를 고려해서 꼭 필요한 보장만 담은 보험을 추천해주셔서 만족스럽습니다.\n\n특히 월 보험료가 부담되지 않는 선에서 설계해주신 점이 좋았습니다. 앞으로도 계속 상담받고 싶습니다."
+            },
+            {
+                id: 2,
+                title: "전체 보험사 비교 후 최적 상품 선택",
+                author: "윤성호",
+                date: "2024.11.05",
+                views: 198,
+                category: "실손보험",
+                content: "여러 보험사 상품을 객관적으로 비교해주셔서 정말 좋았습니다. 특정 보험사를 밀지 않고 제 상황에 맞는 상품을 추천해주셔서 신뢰가 갔습니다.\n\n실손보험 갱신 시기가 되어 걱정했는데, 보험료를 월 3만원이나 절감하면서도 보장은 더 좋아졌습니다.\n\n불필요한 특약은 빼고 꼭 필요한 보장만 넣어주신 덕분입니다."
+            },
+            {
+                id: 3,
+                title: "결혼 후 가족 전체 보험 재설계",
+                author: "송유진",
+                date: "2024.10.18",
+                views: 213,
+                category: "가족보험",
+                content: "결혼 후 남편과 함께 보험을 새로 정비하고 싶었습니다. 정현태 설계사님께서 우리 부부의 직업, 건강 상태, 미래 계획까지 고려해서 가족 전체 보장을 체계적으로 설계해주셨습니다.\n\n특히 아이 계획도 있다고 하니 태아보험까지 미리 안내해주셔서 감동받았습니다.\n\n앞으로도 평생 함께하고 싶은 보험설계사님입니다."
+            },
+            {
+                id: 4,
+                title: "보험료 절감 컨설팅으로 월 15만원 절약",
+                author: "조현석",
+                date: "2024.10.05",
+                views: 267,
+                category: "보험료절감",
+                content: "보험료가 너무 부담되어 해지를 고민했는데, 정현태 설계사님께 상담받고 생각이 바뀌었습니다.\n\n중복 보장을 정리하고 불필요한 특약을 빼니 월 15만원 이상 절감되었습니다. 그런데도 핵심 보장은 오히려 강화되었습니다.\n\n보험료는 줄이고 보장은 늘리는 마법 같은 컨설팅이었습니다. 정말 감사드립니다!"
+            },
+            {
+                id: 5,
+                title: "암보험 가입 전 꼼꼼한 상담",
+                author: "임수빈",
+                date: "2024.09.22",
+                views: 189,
+                category: "암보험",
+                content: "가족력이 있어서 암보험 가입을 고민했습니다. 정현태 설계사님께서 제 가족력과 건강 상태를 면밀히 체크해서 최적의 상품을 찾아주셨습니다.\n\n특히 소액암과 일반암의 차이, 유사암 보장 등을 자세히 설명해주셔서 이해하기 쉬웠습니다.\n\n앞으로도 정기적으로 건강검진 받고 보장 내역 점검받으려고 합니다."
+            },
+            {
+                id: 6,
+                title: "자녀 보험 상담, 성장 단계별 설명 감사합니다",
+                author: "백지원",
+                date: "2024.09.10",
+                views: 175,
+                category: "어린이보험",
+                content: "아이가 태어나서 어린이보험 가입을 알아보던 중 정현태 설계사님을 만났습니다.\n\n아이의 성장 단계별로 필요한 보장을 체계적으로 설명해주셔서 이해하기 쉬웠습니다.\n\n특히 배상책임 보장의 중요성을 강조해주셔서, 요즘 같은 시대에 꼭 필요한 보장이라는 걸 알게 되었습니다. 전문가다운 상담이었습니다."
+            },
+            {
+                id: 7,
+                title: "운전자보험 추천 받고 가입했습니다",
+                author: "김태준",
+                date: "2024.08.28",
+                views: 142,
+                category: "운전자보험",
+                content: "출퇴근 거리가 멀어져서 운전자보험 가입을 고민했습니다. 정현태 설계사님께서 여러 보험사 상품을 비교해주시고 제 운전 습관에 맞는 상품을 추천해주셨습니다.\n\n특히 블랙박스 할인과 안전운전 할인을 적용받아 보험료를 절감할 수 있었습니다."
+            },
+            {
+                id: 8,
+                title: "치아보험 상담, 정말 자세하게 설명해주셨어요",
+                author: "이미경",
+                date: "2024.08.15",
+                views: 163,
+                category: "치아보험",
+                content: "치아 상태가 안 좋아서 치아보험 가입을 알아봤습니다. 정현태 설계사님께서 면책기간, 감액기간, 보장 항목 등을 정말 자세히 설명해주셨습니다.\n\n특히 임플란트와 크라운의 차이, 보장 한도 등을 알기 쉽게 설명해주셔서 이해가 잘 되었습니다."
+            },
+            {
+                id: 9,
+                title: "노후 대비 연금보험 상담",
+                author: "박영수",
+                date: "2024.07.30",
+                views: 221,
+                category: "연금보험",
+                content: "은퇴를 앞두고 노후 준비를 시작했습니다. 정현태 설계사님께서 국민연금, 퇴직연금과 함께 개인연금을 어떻게 설계해야 하는지 체계적으로 안내해주셨습니다.\n\n세제혜택까지 고려한 최적의 연금 포트폴리오를 만들 수 있었습니다."
+            },
+            {
+                id: 10,
+                title: "실비보험 재가입 상담 감사합니다",
+                author: "최윤아",
+                date: "2024.07.18",
+                views: 187,
+                category: "실손보험",
+                content: "기존 실손보험이 만료되어 재가입을 알아보던 중 정현태 설계사님을 만났습니다.\n\n최신 실손보험의 변경 사항과 주의사항을 자세히 설명해주셔서 현명한 선택을 할 수 있었습니다."
+            },
+            {
+                id: 11,
+                title: "20대 청년 맞춤 보험 설계",
+                author: "정민재",
+                date: "2024.06.25",
+                views: 195,
+                category: "종합보험",
+                content: "사회 초년생이라 보험료 부담이 컸는데, 정현태 설계사님께서 20대에 꼭 필요한 보장만 담은 상품을 추천해주셨습니다.\n\n월 5만원대로 실손, 암, 3대질병까지 보장받을 수 있게 되어 만족스럽습니다."
+            },
+            {
+                id: 12,
+                title: "전문직 맞춤 보장 설계 받았습니다",
+                author: "한지수",
+                date: "2024.06.12",
+                views: 168,
+                category: "종합보험",
+                content: "의사라는 직업 특성상 높은 배상책임 보장이 필요했습니다. 정현태 설계사님께서 전문직에 특화된 보험 상품을 추천해주셨습니다.\n\n직업 특성을 잘 이해하시고 맞춤 설계를 해주셔서 감사합니다."
+            },
+            {
+                id: 13,
+                title: "암 가족력 고려한 보험 설계",
+                author: "오상민",
+                date: "2024.05.28",
+                views: 203,
+                category: "암보험",
+                content: "가족 중에 암 환자가 많아 걱정이 컸습니다. 정현태 설계사님께서 가족력을 고려한 보험 설계를 해주셨습니다.\n\n일반암 보장을 강화하고, 재진단암 특약까지 추가해서 든든합니다."
+            },
+            {
+                id: 14,
+                title: "보험 포트폴리오 전체 점검 받았어요",
+                author: "강서현",
+                date: "2024.05.15",
+                views: 176,
+                category: "보험료절감",
+                content: "여러 보험에 가입되어 있었는데 뭐가 뭔지 모르겠더라고요. 정현태 설계사님께서 전체 보험을 점검해주시고 체계적으로 정리해주셨습니다.\n\n중복 보장은 제거하고 부족한 보장은 추가해서 훨씬 나아졌습니다."
+            },
+            {
+                id: 15,
+                title: "다이렉트 보험에서 설계사 보험으로 변경",
+                author: "윤지혜",
+                date: "2024.04.30",
+                views: 214,
+                category: "실손보험",
+                content: "원래 다이렉트로 가입했다가 청구할 일이 생겼는데 너무 복잡하더라고요. 정현태 설계사님께 상담받고 설계사 보험으로 변경했습니다.\n\n보험료는 비슷한데 청구 서비스까지 받을 수 있어서 만족합니다."
+            },
+            {
+                id: 16,
+                title: "임신 전 태아보험 상담 완료",
+                author: "이수진",
+                date: "2024.04.18",
+                views: 189,
+                category: "태아보험",
+                content: "임신을 계획하고 있어서 태아보험 상담을 받았습니다. 정현태 설계사님께서 임신 전 가입의 중요성과 보장 내용을 자세히 설명해주셨습니다.\n\n출생 전후 보장의 차이도 명확히 이해할 수 있었습니다."
+            },
+            {
+                id: 17,
+                title: "3대질병 보장 강화 상담",
+                author: "박재현",
+                date: "2024.03.28",
+                views: 172,
+                category: "종합보험",
+                content: "나이가 들면서 3대질병(암, 뇌, 심장)이 걱정되었습니다. 정현태 설계사님께서 기존 보험에 3대질병 보장을 강화하는 방법을 안내해주셨습니다.\n\n추가 보험료는 크지 않은데 보장이 훨씬 든든해졌습니다."
+            },
+            {
+                id: 18,
+                title: "배상책임 보장의 중요성을 알게 되었어요",
+                author: "김하늘",
+                date: "2024.03.15",
+                views: 158,
+                category: "종합보험",
+                content: "보험 상담 중에 배상책임 보장에 대해 처음 알게 되었습니다. 요즘 같은 시대에 정말 중요한 보장이라는 걸 깨달았습니다.\n\n정현태 설계사님께서 실제 사례를 들어 설명해주셔서 이해가 쉬웠습니다."
+            },
+            {
+                id: 19,
+                title: "유병자 보험 상담 받았습니다",
+                author: "조영철",
+                date: "2024.02.28",
+                views: 241,
+                category: "유병자보험",
+                content: "당뇨가 있어서 일반 보험 가입이 어려웠습니다. 정현태 설계사님께서 유병자 전용 보험을 안내해주셔서 가입할 수 있었습니다.\n\n일반 보험보다 보험료가 높지만, 그래도 보장받을 수 있다는 게 다행입니다."
+            },
+            {
+                id: 20,
+                title: "해외여행자보험 상담 후 가입",
+                author: "서민지",
+                date: "2024.02.15",
+                views: 132,
+                category: "여행자보험",
+                content: "장기 해외여행을 앞두고 여행자보험 상담을 받았습니다. 정현태 설계사님께서 여행 기간과 국가를 고려해 최적의 상품을 추천해주셨습니다.\n\n특히 코로나19 보장도 포함되어 있어서 안심하고 여행할 수 있었습니다."
+            },
+            {
+                id: 21,
+                title: "자영업자 맞춤 보험 설계",
+                author: "최준영",
+                date: "2024.01.30",
+                views: 197,
+                category: "종합보험",
+                content: "자영업자라 소득이 불규칙해서 보험 가입이 고민이었습니다. 정현태 설계사님께서 자영업자 특성을 고려한 보험 설계를 해주셨습니다.\n\n상해 보장을 강화하고 입원일당을 높여서 소득 상실에 대비할 수 있게 되었습니다."
+            },
+            {
+                id: 22,
+                title: "갱신형 vs 비갱신형 차이 이해했어요",
+                author: "홍승우",
+                date: "2024.01.18",
+                views: 183,
+                category: "종합보험",
+                content: "갱신형과 비갱신형의 차이를 몰라서 헷갈렸는데, 정현태 설계사님께서 장단점을 명확히 설명해주셨습니다.\n\n제 나이와 상황을 고려해 갱신형과 비갱신형을 적절히 조합한 상품을 추천해주셔서 만족합니다."
+            },
+            {
+                id: 23,
+                title: "보험 약관 해석 도움 받았습니다",
+                author: "이현주",
+                date: "2023.12.28",
+                views: 165,
+                category: "종합보험",
+                content: "기존에 가입한 보험 약관이 이해가 안 가서 문의드렸는데, 정현태 설계사님께서 어려운 보험 용어를 쉽게 풀어서 설명해주셨습니다.\n\n덕분에 제가 가입한 보험의 보장 내용을 정확히 알게 되었습니다."
+            },
+            {
+                id: 24,
+                title: "50대 맞춤 보험 재설계",
+                author: "김성희",
+                date: "2023.12.15",
+                views: 208,
+                category: "종합보험",
+                content: "50대가 되니 건강이 걱정되어 보험을 재점검받았습니다. 정현태 설계사님께서 50대에 필요한 보장을 중심으로 재설계해주셨습니다.\n\n특히 3대질병 보장을 강화하고 노후 준비까지 함께 설계해주셔서 든든합니다."
+            },
+            {
+                id: 25,
+                title: "신혼부부 보험 설계 상담 후기",
+                author: "안지훈",
+                date: "2023.11.30",
+                views: 192,
+                category: "가족보험",
+                content: "결혼 후 아내와 함께 보험 상담을 받았습니다. 정현태 설계사님께서 신혼부부에게 필요한 보장을 체계적으로 설명해주셨습니다.\n\n특히 맞벌이 부부 특성을 고려한 설계가 인상적이었습니다. 앞으로도 계속 관리받고 싶습니다."
+            }
+        ];
+
+        let currentPage = 1;
+        const postsPerPage = 10;
+        let filteredPosts = [...posts];
+
+        // 게시글 표시
+        function displayPosts(page) {
+            const start = (page - 1) * postsPerPage;
+            const end = start + postsPerPage;
+            const pagePosts = filteredPosts.slice(start, end);
+
+            const tbody = document.getElementById('boardBody');
+            tbody.innerHTML = '';
+
+            pagePosts.forEach(post => {
+                const tr = document.createElement('tr');
+                tr.onclick = () => openModal(post);
+                tr.innerHTML = `
+                    <td>${post.id}</td>
+                    <td>${post.title}<span class="category-badge">📋 ${post.category}</span></td>
+                    <td>${post.author}</td>
+                    <td>${post.date}</td>
+                    <td>${post.views}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            displayPagination();
+        }
+
+        // 페이지네이션 표시
+        function displayPagination() {
+            const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+            const pagination = document.getElementById('pagination');
+            pagination.innerHTML = '';
+
+            // 이전 버튼
+            const prevBtn = document.createElement('button');
+            prevBtn.textContent = '‹';
+            prevBtn.disabled = currentPage === 1;
+            prevBtn.onclick = () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    displayPosts(currentPage);
+                }
+            };
+            pagination.appendChild(prevBtn);
+
+            // 페이지 번호
+            for (let i = 1; i <= totalPages; i++) {
+                const pageBtn = document.createElement('button');
+                pageBtn.textContent = i;
+                pageBtn.className = i === currentPage ? 'active' : '';
+                pageBtn.onclick = () => {
+                    currentPage = i;
+                    displayPosts(currentPage);
+                };
+                pagination.appendChild(pageBtn);
+            }
+
+            // 다음 버튼
+            const nextBtn = document.createElement('button');
+            nextBtn.textContent = '›';
+            nextBtn.disabled = currentPage === totalPages;
+            nextBtn.onclick = () => {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    displayPosts(currentPage);
+                }
+            };
+            pagination.appendChild(nextBtn);
+        }
+
+        // 검색 기능
+        function searchPosts() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            
+            if (searchTerm === '') {
+                filteredPosts = [...posts];
+            } else {
+                filteredPosts = posts.filter(post => 
+                    post.title.toLowerCase().includes(searchTerm) ||
+                    post.content.toLowerCase().includes(searchTerm) ||
+                    post.author.toLowerCase().includes(searchTerm) ||
+                    post.category.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            currentPage = 1;
+            displayPosts(currentPage);
+        }
+
+        // 엔터키로 검색
+        document.getElementById('searchInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                searchPosts();
+            }
+        });
+
+        // 모달 열기
+        function openModal(post) {
+            document.getElementById('modalTitle').textContent = post.title;
+            document.getElementById('modalMeta').innerHTML = `
+                <span>👤 ${post.author}</span>
+                <span>📅 ${post.date}</span>
+                <span>👁 조회 ${post.views}</span>
+                <span class="category-badge">📋 ${post.category}</span>
+            `;
+            document.getElementById('modalContent').textContent = post.content;
+            document.getElementById('modal').classList.add('active');
+            
+            // 조회수 증가
+            post.views++;
+            displayPosts(currentPage);
+        }
+
+        // 모달 닫기
+        function closeModal(event) {
+            if (!event || event.target.id === 'modal') {
+                document.getElementById('modal').classList.remove('active');
+            }
+        }
+
+        // 메뉴 토글
+        function toggleMenu() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+        }
+
+        // 글쓰기 모달 열기
+        function openWriteModal() {
+            document.getElementById('writeModal').classList.add('active');
+        }
+
+        // 글쓰기 모달 닫기
+        function closeWriteModal(event) {
+            if (!event || event.target.id === 'writeModal') {
+                document.getElementById('writeModal').classList.remove('active');
+            }
+        }
+
+        // 후기 작성 제출
+        function submitReview(event) {
+            event.preventDefault();
+            
+            const title = document.getElementById('writeTitle').value;
+            const author = document.getElementById('writeAuthor').value;
+            const category = document.getElementById('writeCategory').value;
+            const content = document.getElementById('writeContent').value;
+            
+            const newPost = {
+                id: posts.length + 1,
+                title: title,
+                author: author,
+                date: new Date().toISOString().split('T')[0].replace(/-/g, '.').substring(2),
+                views: 0,
+                category: category,
+                content: content
+            };
+            
+            posts.unshift(newPost);
+            filteredPosts = [...posts];
+            
+            // 폼 초기화
+            document.getElementById('writeTitle').value = '';
+            document.getElementById('writeAuthor').value = '';
+            document.getElementById('writeCategory').value = '';
+            document.getElementById('writeContent').value = '';
+            
+            closeWriteModal();
+            currentPage = 1;
+            displayPosts(currentPage);
+            
+            alert('후기가 등록되었습니다! 감사합니다.');
+        }
+
+        // 초기 로드
+        displayPosts(currentPage);
+    </script>
+</body>
+</html>
