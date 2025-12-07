@@ -1,0 +1,1282 @@
+[index.html](https://github.com/user-attachments/files/24014238/index.html)
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>보험금청구 전문 서비스 | 정현태 보험설계사</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #3182F6;
+            --primary-blue-dark: #1B64DA;
+            --text-primary: #191F28;
+            --text-secondary: #4E5968;
+            --text-tertiary: #8B95A1;
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F9FAFB;
+            --border-light: #E5E8EB;
+            --success: #0BC27D;
+            --warning: #F59E0B;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Roboto", "Noto Sans KR", sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* 헤더 */
+        header {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border-light);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .menu-btn span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text-primary);
+            margin: 5px 0;
+            transition: 0.3s;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 32px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            font-size: 15px;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--primary-blue);
+        }
+
+        /* 모바일 메뉴 */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 280px;
+            height: 100vh;
+            background: var(--bg-primary);
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+            transition: right 0.3s ease;
+            z-index: 2000;
+            padding: 24px;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--text-primary);
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+        }
+
+        .mobile-menu li {
+            margin-bottom: 24px;
+        }
+
+        .mobile-menu a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-size: 18px;
+            font-weight: 500;
+            display: block;
+        }
+
+        /* 히어로 섹션 */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, var(--primary-blue) 100%);
+            color: white;
+            padding: 80px 24px;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            line-height: 1.3;
+        }
+
+        .hero p {
+            font-size: 20px;
+            opacity: 0.9;
+            margin-bottom: 40px;
+        }
+
+        .hero .consultant-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 16px;
+            opacity: 0.95;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--primary-blue);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* 통계 섹션 */
+        .stats {
+            background: var(--bg-primary);
+            padding: 60px 24px;
+            margin-top: -40px;
+            border-radius: 24px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 8px;
+        }
+
+        .stat-item p {
+            color: var(--text-secondary);
+            font-size: 16px;
+        }
+
+        /* 서비스 섹션 */
+        .section {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 24px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 18px;
+            margin-bottom: 60px;
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .service-card {
+            background: var(--bg-primary);
+            padding: 32px;
+            border-radius: 16px;
+            border: 1px solid var(--border-light);
+            transition: all 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+            border-color: var(--primary-blue);
+        }
+
+        .service-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--primary-blue), #667eea);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .service-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* 후기 섹션 */
+        .reviews {
+            background: var(--bg-primary);
+            padding: 80px 0;
+        }
+
+        .reviews-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+        }
+
+        .reviews-slider-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .reviews-slider {
+            display: flex;
+            gap: 24px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            padding: 20px 0;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .reviews-slider::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* 슬라이더 화살표 버튼 */
+        .slider-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 56px;
+            height: 56px;
+            background: white;
+            border: 2px solid var(--primary-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-blue);
+        }
+
+        .slider-nav:hover {
+            background: var(--primary-blue);
+            color: white;
+            box-shadow: 0 6px 24px rgba(49, 130, 246, 0.4);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .slider-nav.prev {
+            left: 10px;
+        }
+
+        .slider-nav.next {
+            right: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .slider-nav {
+                display: none;
+            }
+        }
+
+        .review-card {
+            min-width: 320px;
+            background: var(--bg-secondary);
+            padding: 32px;
+            border-radius: 16px;
+            scroll-snap-align: start;
+            border: 1px solid var(--border-light);
+            transition: all 0.3s;
+        }
+
+        .review-card:hover {
+            border-color: var(--primary-blue);
+            box-shadow: 0 8px 24px rgba(49, 130, 246, 0.12);
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .review-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-blue), #667eea);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .review-info h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .review-rating {
+            color: #FFA500;
+            font-size: 14px;
+        }
+
+        .review-content {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .review-meta {
+            display: flex;
+            gap: 16px;
+            font-size: 14px;
+            color: var(--text-tertiary);
+        }
+
+        .review-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* 프로세스 섹션 */
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 32px;
+            position: relative;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-blue), #667eea);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0 auto 20px;
+        }
+
+        .step h3 {
+            font-size: 18px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .step p {
+            color: var(--text-secondary);
+        }
+
+        /* CTA 섹션 */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-blue), #667eea);
+            color: white;
+            padding: 80px 24px;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        .cta-section h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 40px;
+        }
+
+        /* 푸터 */
+        footer {
+            background: var(--text-primary);
+            color: white;
+            padding: 60px 24px 24px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 12px;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .menu-btn {
+                display: block;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .stats {
+                margin-top: -20px;
+            }
+
+            .stat-item h3 {
+                font-size: 32px;
+            }
+
+            .review-card {
+                min-width: 280px;
+            }
+        }
+
+        /* 애니메이션 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .animate-card {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        /* 보험 가입 서비스 섹션 배경 */
+        .insurance-planning {
+            background: linear-gradient(135deg, #f8f9ff 0%, #fff 100%);
+            padding: 80px 24px;
+            margin: 0;
+            max-width: 100%;
+            border-radius: 0;
+        }
+
+        .insurance-planning .service-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .insurance-planning .service-card {
+            background: white;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        .insurance-planning .service-card:hover {
+            box-shadow: 0 8px 32px rgba(49, 130, 246, 0.15);
+        }
+    </style>
+</head>
+<body>
+    <!-- 헤더 -->
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                💼 정현태 보험설계사
+            </div>
+            <button class="menu-btn" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav>
+                <ul>
+                    <li><a href="#planning">보험설계</a></li>
+                    <li><a href="#services">보험청구</a></li>
+                    <li><a href="#process">청구절차</a></li>
+                    <li><a href="claim_reviews.html">고객청구후기</a></li>
+                    <li><a href="consult_reviews.html">고객상담후기</a></li>
+                    <li><a href="#contact">상담신청</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 모바일 메뉴 -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-header">
+            <div class="logo">💼 메뉴</div>
+            <button class="close-btn" onclick="toggleMenu()">&times;</button>
+        </div>
+        <ul>
+            <li><a href="#planning" onclick="toggleMenu()">보험설계</a></li>
+            <li><a href="#services" onclick="toggleMenu()">보험청구</a></li>
+            <li><a href="#process" onclick="toggleMenu()">청구절차</a></li>
+            <li><a href="claim_reviews.html">고객청구후기</a></li>
+            <li><a href="consult_reviews.html">고객상담후기</a></li>
+            <li><a href="#contact" onclick="toggleMenu()">상담신청</a></li>
+        </ul>
+    </div>
+
+    <!-- 히어로 섹션 -->
+    <section class="hero">
+        <div class="hero-content fade-in-up">
+            <h1>보험 가입부터 청구까지<br>평생 함께하는 보험설계사</h1>
+            <p>맞춤 보험 설계 · 전체 보험사 비교 · 보험금 청구 대행<br>고객님의 든든한 보험 파트너가 되겠습니다</p>
+            <div class="consultant-name">정현태 보험설계사 | 📞 010-7653-0903</div>
+            <div class="cta-buttons">
+                <a href="tel:010-7653-0903" class="btn btn-primary">
+                    📞 전화 상담 신청하기 →
+                </a>
+                <button class="btn btn-secondary" onclick="location.href='#process'">
+                    청구 절차 알아보기
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 통계 섹션 -->
+    <section class="stats fade-in-up">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <h3 id="clientCount">2,847</h3>
+                <p>상담 고객 수</p>
+            </div>
+            <div class="stat-item">
+                <h3 id="contractCount">1,523</h3>
+                <p>보험 계약 건수</p>
+            </div>
+            <div class="stat-item">
+                <h3 id="claimCount">1,247</h3>
+                <p>누적 청구 건수</p>
+            </div>
+            <div class="stat-item">
+                <h3 id="claimAmount">38.5억원</h3>
+                <p>누적 청구 금액</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 보험금 수령 섹션 -->
+    <section class="section" style="text-align: center; padding: 60px 24px;">
+        <img src="Gemini_Generated_Image_844qv8844qv8844q.png" alt="보험금 수령" style="max-width: 500px; width: 100%; height: auto; border-radius: 24px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);">
+        <h3 style="margin-top: 32px; font-size: 28px; font-weight: 700; color: var(--text-primary);">정당한 보험금, 빠짐없이 받으세요</h3>
+        <p style="margin-top: 12px; font-size: 18px; color: var(--text-secondary);">전문가가 함께하면 더 많은 보험금을 받을 수 있습니다</p>
+    </section>
+
+    <!-- 보험 가입 서비스 섹션 -->
+    <section class="section insurance-planning" id="planning">
+        <h2 class="section-title">맞춤 보험 설계</h2>
+        <p class="section-subtitle">고객님의 상황에 꼭 맞는 보험을 설계합니다</p>
+        <div class="service-grid">
+            <div class="service-card animate-card" style="animation-delay: 0.1s;">
+                <div class="service-icon">💡</div>
+                <h3>맞춤 보험 설계 & 상담</h3>
+                <p>고객님의 나이, 직업, 가족 구성, 건강 상태를 종합적으로 분석하여 최적의 보험 포트폴리오를 설계합니다.</p>
+            </div>
+            <div class="service-card animate-card" style="animation-delay: 0.2s;">
+                <div class="service-icon">🔍</div>
+                <h3>전체 보험사 비교 설계</h3>
+                <p>45개 전체 보험사의 상품을 비교 분석하여 가장 유리한 조건의 보험을 추천드립니다. 편향 없는 객관적 설계를 약속합니다.</p>
+            </div>
+            <div class="service-card animate-card" style="animation-delay: 0.3s;">
+                <div class="service-icon">📈</div>
+                <h3>정기적인 보장 분석</h3>
+                <p>가입 후에도 정기적으로 보장 내역을 점검하고, 생애 주기 변화에 따라 보험을 재설계해드립니다.</p>
+            </div>
+            <div class="service-card animate-card" style="animation-delay: 0.4s;">
+                <div class="service-icon">💰</div>
+                <h3>보험료 절감 컨설팅</h3>
+                <p>중복 보장 제거, 불필요한 특약 정리 등을 통해 보험료를 최적화하고 실질적인 보장은 강화합니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 보험금 청구 서비스 섹션 -->
+    <section class="section" id="services">
+        <h2 class="section-title">보험금 청구 서비스</h2>
+        <p class="section-subtitle">보험금 청구의 모든 과정을 지원합니다</p>
+        <div class="service-grid">
+            <div class="service-card">
+                <div class="service-icon">📋</div>
+                <h3>보험금 청구 대행</h3>
+                <p>복잡한 서류 작성부터 보험사 제출까지 전 과정을 대행합니다. 전문가가 직접 처리하여 누락 없이 완벽하게 진행합니다.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🏢</div>
+                <h3>전체 보험사 취급</h3>
+                <p>국내 모든 보험사(45개사)의 보험금 청구를 지원합니다. 여러 보험사 가입 시에도 한 번에 처리 가능합니다.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">⚖️</div>
+                <h3>손해사정사 연결</h3>
+                <p>전문 손해사정사와의 협업으로 정확한 손해액 산정과 적정 보험금 수령을 지원합니다.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">👨‍⚖️</div>
+                <h3>변호사 연결</h3>
+                <p>보험사와의 분쟁 발생 시 전문 변호사를 연결하여 법적 대응까지 완벽하게 지원합니다.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">📊</div>
+                <h3>청구 현황 관리</h3>
+                <p>실시간으로 청구 진행 상황을 확인하고, 필요한 서류나 조치사항을 즉시 안내받을 수 있습니다.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">💬</div>
+                <h3>24시간 상담</h3>
+                <p>언제든지 궁금한 사항을 문의하실 수 있습니다. 빠르고 정확한 답변으로 도와드립니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 프로세스 섹션 -->
+    <section class="section" id="process">
+        <h2 class="section-title">간단한 청구 절차</h2>
+        <p class="section-subtitle">4단계로 끝나는 보험금 청구</p>
+        <div class="process-steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>상담 신청</h3>
+                <p>온라인/전화로 간단히 상담을 신청합니다</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>서류 준비</h3>
+                <p>필요한 서류를 안내받고 준비합니다</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>청구 진행</h3>
+                <p>전문가가 직접 보험사에 청구합니다</p>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3>보험금 수령</h3>
+                <p>보험금을 빠르게 지급받습니다</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 고객 청구 후기 섹션 -->
+    <section class="reviews" id="claim-reviews">
+        <div class="reviews-container">
+            <h2 class="section-title">고객 청구 후기</h2>
+            <p class="section-subtitle">보험금 청구를 진행하신 고객님들의 생생한 후기</p>
+            
+            <div class="reviews-slider-wrapper">
+                <button class="slider-nav prev" onclick="scrollReviews('claim', 'prev')">←</button>
+                <button class="slider-nav next" onclick="scrollReviews('claim', 'next')">→</button>
+                
+                <div class="reviews-slider" id="claimReviewsSlider">
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">김</div>
+                            <div class="review-info">
+                                <h4>김민수 님</h4>
+                                <div class="review-rating">⭐⭐⭐⭐⭐</div>
+                            </div>
+                        </div>
+                        <p class="review-content">
+                            "암 진단 후 여러 보험사에 청구해야 했는데, 모든 절차를 대행해주셔서 너무 편했습니다. 예상보다 많은 금액을 받게 되어 감사드립니다."
+                        </p>
+                        <div class="review-meta">
+                            <span>📅 2024.11</span>
+                            <span>💰 1,850만원 수령</span>
+                        </div>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">이</div>
+                            <div class="review-info">
+                                <h4>이지영 님</h4>
+                                <div class="review-rating">⭐⭐⭐⭐⭐</div>
+                            </div>
+                        </div>
+                        <p class="review-content">
+                            "교통사고 후 보험사에서 지급 거절을 받았는데, 손해사정사님을 연결해주셔서 정당한 보험금을 받을 수 있었습니다. 정말 감사합니다."
+                        </p>
+                        <div class="review-meta">
+                            <span>📅 2024.10</span>
+                            <span>💰 4,200만원 수령</span>
+                        </div>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">박</div>
+                            <div class="review-info">
+                                <h4>박준혁 님</h4>
+                                <div class="review-rating">⭐⭐⭐⭐⭐</div>
+                            </div>
+                        </div>
+                        <p class="review-content">
+                            "수술 후 입원 기간이 길어져 청구할 보험이 많았는데, 하나하나 챙겨서 청구해주셔서 큰 도움이 되었습니다. 전문가의 손길이 정말 다릅니다."
+                        </p>
+                        <div class="review-meta">
+                            <span>📅 2024.09</span>
+                            <span>💰 680만원 수령</span>
+                        </div>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">최</div>
+                            <div class="review-info">
+                                <h4>최수진 님</h4>
+                                <div class="review-rating">⭐⭐⭐⭐⭐</div>
+                            </div>
+                        </div>
+                        <p class="review-content">
+                            "고혈압으로 입원했는데 청구할 수 있는지도 몰랐습니다. 상담을 통해 청구 가능 여부를 확인하고 보험금을 받게 되어 정말 기쁩니다."
+                        </p>
+                        <div class="review-meta">
+                            <span>📅 2024.08</span>
+                            <span>💰 320만원 수령</span>
+                        </div>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">정</div>
+                            <div class="review-info">
+                                <h4>정현우 님</h4>
+                                <div class="review-rating">⭐⭐⭐⭐⭐</div>
+                            </div>
+                        </div>
+                        <p class="review-content">
+                            "화재 사고로 집이 전소되어 막막했는데, 신속하게 청구를 도와주시고 변호사까지 연결해주셔서 정당한 배상을 받을 수 있었습니다."
+                        </p>
+                        <div class="review-meta">
+                            <span>📅 2024.07</span>
+                            <span>💰 8,500만원 수령</span>
+                        </div>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">한</div>
+                            <div class="review-info">
+                                <h4>한서연 님</h4>
+                                <div class="review-rating">⭐⭐⭐⭐⭐</div>
+                            </div>
+                        </div>
+                        <p class="review-content">
+                            "골절로 수술 후 재활 치료를 받았는데, 모든 과정을 세심하게 챙겨주셔서 편하게 치료에만 집중할 수 있었습니다. 추천합니다!"
+                        </p>
+                        <div class="review-meta">
+                            <span>📅 2024.06</span>
+                            <span>💰 550만원 수령</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 고객 상담 후기 섹션 -->
+    <section class="section" id="consult-reviews" style="background: var(--bg-secondary); padding: 80px 24px; margin: 0; max-width: 100%;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <h2 class="section-title">고객 상담 후기</h2>
+            <p class="section-subtitle">보험 설계 및 상담을 받으신 고객님들의 후기</p>
+            
+            <div class="reviews-slider-wrapper">
+                <button class="slider-nav prev" onclick="scrollReviews('consult', 'prev')">←</button>
+                <button class="slider-nav next" onclick="scrollReviews('consult', 'next')">→</button>
+                
+                <div class="reviews-slider" id="consultReviewsSlider">
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">강</div>
+                            <div class="review-info">
+                                <h4>강민지 님</h4>
+                                <div class="review-rating">⭐⭐⭐⭐⭐</div>
+                            </div>
+                        </div>
+                        <p class="review-content">
+                            "처음 보험 가입하는데 정현태 설계사님이 정말 친절하게 설명해주셨어요. 제 상황에 딱 맞는 보험을 추천해주셔서 만족스럽습니다."
+                        </p>
+                        <div class="review-meta">
+                            <span>📅 2024.11</span>
+                            <span>📋 종합보험 설계</span>
+                        </div>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">윤</div>
+                            <div class="review-info">
+                                <h4>윤성호 님</h4>
+                                <div class="review-rating">⭐⭐⭐⭐⭐</div>
+                            </div>
+                        </div>
+                        <p class="review-content">
+                            "여러 보험사 상품을 객관적으로 비교해주셔서 좋았습니다. 불필요한 특약은 빼고 꼭 필요한 보장만 넣어서 보험료도 절감했어요."
+                        </p>
+                        <div class="review-meta">
+                            <span>📅 2024.10</span>
+                            <span>📋 실손보험 재설계</span>
+                        </div>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">송</div>
+                            <div class="review-info">
+                                <h4>송유진 님</h4>
+                                <div class="review-rating">⭐⭐⭐⭐⭐</div>
+                            </div>
+                        </div>
+                        <p class="review-content">
+                            "결혼 후 보험을 새로 정비하고 싶었는데, 가족 전체 보장을 체계적으로 설계해주셨습니다. 앞으로도 계속 상담받고 싶어요."
+                        </p>
+                        <div class="review-meta">
+                            <span>📅 2024.09</span>
+                            <span>📋 가족보험 설계</span>
+                        </div>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">조</div>
+                            <div class="review-info">
+                                <h4>조현석 님</h4>
+                                <div class="review-rating">⭐⭐⭐⭐⭐</div>
+                            </div>
+                        </div>
+                        <p class="review-content">
+                            "보험료가 너무 부담되어 상담받았는데, 중복 보장을 정리해주시고 월 10만원 이상 절감했습니다. 정말 감사합니다!"
+                        </p>
+                        <div class="review-meta">
+                            <span>📅 2024.08</span>
+                            <span>📋 보험료 절감 컨설팅</span>
+                        </div>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">임</div>
+                            <div class="review-info">
+                                <h4>임수빈 님</h4>
+                                <div class="review-rating">⭐⭐⭐⭐⭐</div>
+                            </div>
+                        </div>
+                        <p class="review-content">
+                            "암보험 가입 상담을 받았는데, 제 가족력과 건강 상태를 꼼꼼히 체크해서 최적의 상품을 찾아주셨어요. 믿음이 갑니다."
+                        </p>
+                        <div class="review-meta">
+                            <span>📅 2024.07</span>
+                            <span>📋 암보험 신규 가입</span>
+                        </div>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">백</div>
+                            <div class="review-info">
+                                <h4>백지원 님</h4>
+                                <div class="review-rating">⭐⭐⭐⭐⭐</div>
+                            </div>
+                        </div>
+                        <p class="review-content">
+                            "자녀 보험 상담받았는데, 성장 단계별로 필요한 보장을 체계적으로 설명해주셔서 이해하기 쉬웠습니다. 전문가다운 모습이었어요."
+                        </p>
+                        <div class="review-meta">
+                            <span>📅 2024.06</span>
+                            <span>📋 어린이보험 설계</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 자동차 보험 섹션 -->
+    <section class="section" style="text-align: center; padding: 60px 24px; background: var(--bg-secondary); margin: 80px 0; border-radius: 24px;">
+        <img src="Gemini_Generated_Image_lnxn4blnxn4blnxn.png" alt="자동차 보험" style="max-width: 500px; width: 100%; height: auto; border-radius: 24px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);">
+        <h3 style="margin-top: 32px; font-size: 28px; font-weight: 700; color: var(--text-primary);">자동차부터 생명보험까지</h3>
+        <p style="margin-top: 12px; font-size: 18px; color: var(--text-secondary);">모든 보험을 한 곳에서 관리하세요</p>
+    </section>
+
+    <!-- CTA 섹션 -->
+    <section class="cta-section" id="contact">
+        <h2>지금 바로 무료 상담 받으세요</h2>
+        <p>보험금 청구, 더 이상 어려워하지 마세요<br>전문가가 처음부터 끝까지 함께합니다</p>
+        <div class="cta-buttons">
+            <a href="tel:010-7653-0903" class="btn btn-primary">
+                📞 전화 상담 신청
+            </a>
+            <a href="sms:010-7653-0903" class="btn btn-secondary">
+                💬 문자 상담
+            </a>
+        </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>정현태 보험설계사</h3>
+                <p style="color: rgba(255,255,255,0.7); line-height: 1.6;">
+                    전체 보험사 취급<br>
+                    손해사정사 · 변호사 연결<br>
+                    보험금 청구 전문 서비스
+                </p>
+            </div>
+            <div class="footer-section">
+                <h3>서비스</h3>
+                <ul>
+                    <li><a href="#planning">보험 설계</a></li>
+                    <li><a href="#services">보험금 청구 대행</a></li>
+                    <li><a href="#services">손해사정사 연결</a></li>
+                    <li><a href="#services">변호사 연결</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>고객지원</h3>
+                <ul>
+                    <li><a href="#contact">상담 신청</a></li>
+                    <li><a href="#claim-reviews">고객 청구 후기</a></li>
+                    <li><a href="#consult-reviews">고객 상담 후기</a></li>
+                    <li><a href="#process">청구 절차</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>문의</h3>
+                <ul>
+                    <li><a href="tel:010-7653-0903">📞 010-7653-0903</a></li>
+                    <li>📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5e373038311e3d323f3733703d3133">[email&#160;protected]</a></li>
+                    <li>🕐 평일 09:00 - 18:00</li>
+                    <li>💬 24시간 채팅 상담</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 정현태 보험설계사. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // 메뉴 토글
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+        }
+
+        // 후기 슬라이더 화살표 네비게이션
+        function scrollReviews(type, direction) {
+            const slider = document.getElementById(type === 'claim' ? 'claimReviewsSlider' : 'consultReviewsSlider');
+            const scrollAmount = 368;
+            
+            if (direction === 'prev') {
+                slider.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+            } else {
+                slider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            }
+        }
+
+        // 터치 스와이프 지원 (청구 후기)
+        const claimSlider = document.getElementById('claimReviewsSlider');
+        let touchStartX1 = 0;
+        let touchEndX1 = 0;
+
+        claimSlider.addEventListener('touchstart', (e) => {
+            touchStartX1 = e.changedTouches[0].screenX;
+        });
+
+        claimSlider.addEventListener('touchend', (e) => {
+            touchEndX1 = e.changedTouches[0].screenX;
+            handleSwipe(claimSlider, touchStartX1, touchEndX1);
+        });
+
+        // 터치 스와이프 지원 (상담 후기)
+        const consultSlider = document.getElementById('consultReviewsSlider');
+        let touchStartX2 = 0;
+        let touchEndX2 = 0;
+
+        consultSlider.addEventListener('touchstart', (e) => {
+            touchStartX2 = e.changedTouches[0].screenX;
+        });
+
+        consultSlider.addEventListener('touchend', (e) => {
+            touchEndX2 = e.changedTouches[0].screenX;
+            handleSwipe(consultSlider, touchStartX2, touchEndX2);
+        });
+
+        function handleSwipe(slider, startX, endX) {
+            if (endX < startX - 50) {
+                slider.scrollBy({ left: 344, behavior: 'smooth' });
+            }
+            if (endX > startX + 50) {
+                slider.scrollBy({ left: -344, behavior: 'smooth' });
+            }
+        }
+
+        // 스크롤 애니메이션
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.6s ease-out';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.service-card, .step, .review-card, .animate-card').forEach(el => {
+            observer.observe(el);
+        });
+
+        // 숫자 카운트 애니메이션
+        function animateCount(element, target, suffix = '') {
+            let current = 0;
+            const increment = target / 50;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target.toLocaleString() + suffix;
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current).toLocaleString() + suffix;
+                }
+            }, 30);
+        }
+
+        // 페이지 로드 시 통계 애니메이션
+        window.addEventListener('load', () => {
+            const statsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCount(document.getElementById('clientCount'), 2847, '명');
+                        animateCount(document.getElementById('contractCount'), 1523, '건');
+                        animateCount(document.getElementById('claimCount'), 1247, '건');
+                        animateCount(document.getElementById('claimAmount'), 38.5, '억원');
+                        statsObserver.unobserve(entry.target);
+                    }
+                });
+            });
+
+            statsObserver.observe(document.querySelector('.stats'));
+        });
+
+        // 부드러운 스크롤
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+  
